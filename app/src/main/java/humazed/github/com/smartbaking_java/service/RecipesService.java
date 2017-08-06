@@ -3,7 +3,7 @@ package humazed.github.com.smartbaking_java.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import humazed.github.com.smartbaking_java.utils.AutoValueAdapterFactory;
+import humazed.github.com.smartbaking_java.utils.auto_gson.AutoValueAdapterFactory;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -1,4 +1,4 @@
-package humazed.github.com.smartbaking_java.utils;
+package humazed.github.com.smartbaking_java.utils.auto_gson;
 
 import com.google.auto.value.AutoValue;
 import java.lang.annotation.Retention; 

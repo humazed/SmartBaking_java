@@ -7,7 +7,7 @@ import com.google.auto.value.AutoValue;
 
 import java.util.List;
 
-import humazed.github.com.smartbaking_java.utils.AutoGson;
+import humazed.github.com.smartbaking_java.utils.auto_gson.AutoGson;
 
 @AutoValue
 @AutoGson

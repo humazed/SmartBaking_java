@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.auto.value.AutoValue;
 
-import humazed.github.com.smartbaking_java.utils.AutoGson;
+import humazed.github.com.smartbaking_java.utils.auto_gson.AutoGson;
 
 @AutoValue
 @AutoGson

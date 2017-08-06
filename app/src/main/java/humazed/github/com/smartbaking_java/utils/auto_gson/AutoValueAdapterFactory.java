@@ -1,4 +1,4 @@
-package humazed.github.com.smartbaking_java.utils;
+package humazed.github.com.smartbaking_java.utils.auto_gson;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
