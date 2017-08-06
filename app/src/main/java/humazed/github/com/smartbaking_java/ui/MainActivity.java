@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_RECIPE = "MainActivity:recipe";
 
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +42,16 @@ public class MainActivity extends AppCompatActivity {
         RecipesService.create().getRecipes().enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(@NonNull Call<List<Recipe>> call, @NonNull Response<List<Recipe>> response) {
+                mProgressBar.setVisibility(View.GONE);
                 setupRecyclerView(response.body());
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Recipe>> call, @NonNull Throwable t) {
+                mProgressBar.setVisibility(View.GONE);
                 Log.e(TAG, "onFailure: ", t);
             }
         });
-
 
     }
 
