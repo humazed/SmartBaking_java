@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Smart Baking</string>
+    <string name="title_steps_list">Steps</string>
+    <string name="title_step_detail">Step Detail</string>
+</resources>
