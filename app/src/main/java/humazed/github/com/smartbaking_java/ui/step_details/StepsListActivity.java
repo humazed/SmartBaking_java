@@ -60,6 +60,7 @@ public class StepsListActivity extends AppCompatActivity {
 
         Recipe recipe = getIntent().getParcelableExtra(KEY_RECIPE);
 
+        getSupportActionBar().setTitle(recipe.name() + " Steps");
         setupRecyclerView(new ArrayList<>(recipe.steps()));
 
         mIngredientsTextView.setText(StreamSupport.stream(recipe.ingredients())
