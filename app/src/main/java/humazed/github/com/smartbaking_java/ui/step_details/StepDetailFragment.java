@@ -104,7 +104,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         mStepDescriptionTextView.setText(step.description());
 
         if (mPosition == 0) mPreviousFab.setVisibility(View.GONE);
-        else if (mPosition == mSteps.size()) mNextFab.setVisibility(View.GONE);
+        else if (mPosition == mSteps.size() - 1) mNextFab.setVisibility(View.GONE);
 
         mNextFab.setOnClickListener(v -> switchTo(getActivity(), mSteps, step.id() + 1));
         mPreviousFab.setOnClickListener(v -> switchTo(getActivity(), mSteps, step.id() - 1));
