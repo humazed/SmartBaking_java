@@ -42,12 +42,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         mCountingIdlingResource.increment();
-        RecipesService.create().getRecipes().enqueue(new Callback<List<Recipe>>() {
+
+        RecipesService.create(this).getRecipes().enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(@NonNull Call<List<Recipe>> call, @NonNull Response<List<Recipe>> response) {
                 mProgressBar.setVisibility(View.GONE);
+                Log.d(TAG, "onResponse() returned: " + response.body());
                 setupRecyclerView(response.body());
                 mCountingIdlingResource.decrement();
             }
