@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<List<Recipe>> call, @NonNull Throwable t) {
                 mProgressBar.setVisibility(View.GONE);
                 Log.e(TAG, "onFailure: ", t);
+                Toast.makeText(MainActivity.this, "unexpected error: " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 mCountingIdlingResource.decrement();
             }
         });
