@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import humazed.github.com.smartbaking_java.R;
 import humazed.github.com.smartbaking_java.model.Step;
 
-import static android.support.v4.app.NavUtils.navigateUpFromSameTask;
-
 /**
  * An activity representing a single Recipe detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
@@ -46,7 +44,7 @@ public class StepDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            navigateUpFromSameTask(this);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

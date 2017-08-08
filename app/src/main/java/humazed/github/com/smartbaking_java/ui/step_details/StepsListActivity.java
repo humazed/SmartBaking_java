@@ -21,6 +21,8 @@ import humazed.github.com.smartbaking_java.adapters.StepsAdapter;
 import humazed.github.com.smartbaking_java.model.Ingredient;
 import humazed.github.com.smartbaking_java.model.Recipe;
 import humazed.github.com.smartbaking_java.model.Step;
+import icepick.Icepick;
+import icepick.State;
 import java8.util.stream.StreamSupport;
 
 import static android.support.v4.app.NavUtils.navigateUpFromSameTask;
@@ -49,6 +51,7 @@ public class StepsListActivity extends AppCompatActivity {
     @BindView(R.id.cardView) CardView mCardView;
     @BindView(R.id.frameLayout) FrameLayout mFrameLayout;
     @BindBool(R.bool.isTablet) boolean isTablet;
+    @State Recipe mRecipe;
 
 
     @Override
@@ -56,14 +59,18 @@ public class StepsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steps_list);
         ButterKnife.bind(this);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Recipe recipe = getIntent().getParcelableExtra(KEY_RECIPE);
+        if (getIntent() != null) {
+            mRecipe = getIntent().getParcelableExtra(KEY_RECIPE);
+        }
 
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle(recipe.name() + " Steps");
-        setupRecyclerView(new ArrayList<>(recipe.steps()));
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(mRecipe.name() + " Steps");
+        setupRecyclerView(new ArrayList<>(mRecipe.steps()));
 
-        mIngredientsTextView.setText(StreamSupport.stream(recipe.ingredients())
+        mIngredientsTextView.setText(StreamSupport.stream(mRecipe.ingredients())
                 .map(Ingredient::toString)
                 .reduce((s, s2) -> s + s2).get());
     }
@@ -82,6 +89,12 @@ public class StepsListActivity extends AppCompatActivity {
             }
         });
         mStepsRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override
