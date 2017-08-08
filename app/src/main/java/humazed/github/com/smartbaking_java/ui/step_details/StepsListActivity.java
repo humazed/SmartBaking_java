@@ -1,15 +1,20 @@
 package humazed.github.com.smartbaking_java.ui.step_details;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -25,7 +30,6 @@ import icepick.Icepick;
 import icepick.State;
 import java8.util.stream.StreamSupport;
 
-import static android.support.v4.app.NavUtils.navigateUpFromSameTask;
 import static humazed.github.com.smartbaking_java.ui.MainActivity.KEY_RECIPE;
 
 
@@ -98,12 +102,30 @@ public class StepsListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_step_list_activity, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            navigateUpFromSameTask(this);
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.add_to_widget:
+                addToWidget();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    private void addToWidget() {
+        String json = new Gson().toJson(mRecipe);
+        Log.d(TAG, "addToWidget " + json);
+        getSharedPreferences(getString(R.string.pref_recipe), Context.MODE_PRIVATE).edit()
+                .putString(getString(R.string.pref_recipe_gson), json)
+                .apply();
     }
 }
