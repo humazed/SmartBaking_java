@@ -4,6 +4,7 @@ package humazed.github.com.smartbaking_java.ui.step_details;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -44,6 +45,7 @@ public class StepsListActivity extends AppCompatActivity {
 
     public static final String KEY_STEPS = "StepsListActivity:mStep";
     public static final String KEY_POSITION = "StepsListActivity:mPosition";
+    private static final String LIST_STATE_KEY = "LIST_STATE_KEY";
 
     @Nullable
     @BindView(R.id.recipe_detail_container)
@@ -54,6 +56,8 @@ public class StepsListActivity extends AppCompatActivity {
     @BindView(R.id.frameLayout) FrameLayout mFrameLayout;
     @BindBool(R.bool.isTablet) boolean isTablet;
     @State Recipe mRecipe;
+
+    private Parcelable mListState;
 
 
     @Override
@@ -94,12 +98,6 @@ public class StepsListActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Icepick.saveInstanceState(this, outState);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_step_list_activity, menu);
         return true;
@@ -124,5 +122,29 @@ public class StepsListActivity extends AppCompatActivity {
         getSharedPreferences(getString(R.string.pref_recipe), Context.MODE_PRIVATE).edit()
                 .putString(getString(R.string.pref_recipe_gson), json)
                 .apply();
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
+
+        mListState = mStepsRecyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(LIST_STATE_KEY, mListState);
+    }
+
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+
+        if (state != null) mListState = state.getParcelable(LIST_STATE_KEY);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mListState != null)
+            mStepsRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
     }
 }

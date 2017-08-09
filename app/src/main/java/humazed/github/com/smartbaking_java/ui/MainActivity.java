@@ -2,6 +2,7 @@ package humazed.github.com.smartbaking_java.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v7.app.AppCompatActivity;
@@ -32,11 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String KEY_RECIPE = "MainActivity:recipe";
     public static final String DATA_LOADER = "DATA_LOADER";
+    private static final String LIST_STATE_KEY = "LIST_STATE_KEY";
 
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
     CountingIdlingResource mCountingIdlingResource = new CountingIdlingResource(DATA_LOADER);
+
+    private Parcelable mListState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,4 +80,26 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, RecyclerViewUtils.calculateSpanCount(this)));
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mListState = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(LIST_STATE_KEY, mListState);
+    }
+
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+
+        if (state != null) mListState = state.getParcelable(LIST_STATE_KEY);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mListState != null) mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
+    }
+
 }
