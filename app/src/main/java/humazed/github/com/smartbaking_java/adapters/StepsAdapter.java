@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -34,7 +36,11 @@ public final class StepsAdapter extends BaseQuickAdapter<Step, BaseViewHolder> {
 
         mNameTextView.setText(result.id() + 1 + "- " + result.shortDescription());
 
-        if (TextUtils.isEmpty(result.videoURL())) mStepImageView.setVisibility(View.INVISIBLE);
+        if (TextUtils.isEmpty(result.videoURL())) { mStepImageView.setVisibility(View.INVISIBLE);}
+
+        Glide.with(mContext)
+                .load(result.thumbnailURL())
+                .into(mStepImageView);
 
     }
 }
