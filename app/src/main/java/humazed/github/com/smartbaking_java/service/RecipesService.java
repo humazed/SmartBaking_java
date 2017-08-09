@@ -2,11 +2,8 @@ package humazed.github.com.smartbaking_java.service;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import humazed.github.com.smartbaking_java.utils.NetworkUtil;
-import humazed.github.com.smartbaking_java.utils.auto_gson.AutoValueAdapterFactory;
+import humazed.github.com.smartbaking_java.utils.auto_gson.GsonAutoValue;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -18,13 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RecipesService {
 
     public static RecipesApi create(Context context) {
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapterFactory(new AutoValueAdapterFactory())
-                .create();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .client(NetworkUtil.getCaCheOkHttpClient(context))
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create(GsonAutoValue.getInstance()))
                 .baseUrl("https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/")
                 .build();
 

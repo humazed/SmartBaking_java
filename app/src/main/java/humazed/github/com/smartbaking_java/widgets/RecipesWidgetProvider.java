@@ -8,26 +8,26 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import humazed.github.com.smartbaking_java.R;
-import humazed.github.com.smartbaking_java.ui.MainActivity;
+import humazed.github.com.smartbaking_java.ui.step_details.StepDetailActivity;
 
 /**
  * Implementation of App Widget functionality.
  */
-public class RecipesWidget extends AppWidgetProvider {
+public class RecipesWidgetProvider extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 
-        CharSequence widgetText = context.getString(R.string.recipes_widget_text);
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.steps_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_steps);
 
-        Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        Intent intent = new Intent(context, RecipesWidgetRemoteViewsService.class);
+        views.setRemoteAdapter(R.id.stepsListView, intent);
 
-        // Widgets allow click handlers to only launch pending intents
-        views.setOnClickPendingIntent(R.id.widget_container, pendingIntent);
+        // Set the PlantDetailActivity intent to launch when clicked
+        Intent appIntent = new Intent(context, StepDetailActivity.class);
+        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.stepsListView, appPendingIntent);
 
-        views.setTextViewText(R.id.steps_widget_text, widgetText);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

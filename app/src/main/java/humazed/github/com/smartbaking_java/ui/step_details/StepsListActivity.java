@@ -8,13 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -26,6 +23,7 @@ import humazed.github.com.smartbaking_java.adapters.StepsAdapter;
 import humazed.github.com.smartbaking_java.model.Ingredient;
 import humazed.github.com.smartbaking_java.model.Recipe;
 import humazed.github.com.smartbaking_java.model.Step;
+import humazed.github.com.smartbaking_java.utils.auto_gson.GsonAutoValue;
 import icepick.Icepick;
 import icepick.State;
 import java8.util.stream.StreamSupport;
@@ -122,8 +120,7 @@ public class StepsListActivity extends AppCompatActivity {
     }
 
     private void addToWidget() {
-        String json = new Gson().toJson(mRecipe);
-        Log.d(TAG, "addToWidget " + json);
+        String json = GsonAutoValue.getInstance().toJson(mRecipe);
         getSharedPreferences(getString(R.string.pref_recipe), Context.MODE_PRIVATE).edit()
                 .putString(getString(R.string.pref_recipe_gson), json)
                 .apply();
