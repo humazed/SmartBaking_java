@@ -89,7 +89,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
         mPosition = getArguments().getInt(ARG_POSITION);
         mSteps = getArguments().getParcelableArrayList(ARG_STEPS);
-        (((AppCompatActivity) getActivity())).getSupportActionBar()
+        ((AppCompatActivity) getActivity()).getSupportActionBar()
                 .setTitle(mSteps.get(mPosition).shortDescription());
     }
 
@@ -198,6 +198,12 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             mExoPlayer.release();
             mExoPlayer = null;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializePlayer(Uri.parse(mSteps.get(mPosition).videoURL()));
     }
 
     private class MySessionCallback extends MediaSessionCompat.Callback {
