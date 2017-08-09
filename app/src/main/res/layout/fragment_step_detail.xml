@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="azed.github.com.smartbaking_java.ui.step_details.StepDetailFragment">
+    tools:context="humazed.github.com.smartbaking_java.ui.step_details.StepDetailFragment">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/exoPlayerView"

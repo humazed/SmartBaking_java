@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    tools:context="azed.github.com.smartbaking_java.ui.step_details.StepsListActivity"
+    tools:context="humazed.github.com.smartbaking_java.ui.step_details.StepsListActivity"
     tools:showIn="@layout/steps_list">
 
     <LinearLayout

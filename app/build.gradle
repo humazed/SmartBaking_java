@@ -78,8 +78,6 @@ dependencies {
 
     compile 'com.blankj:utilcode:1.8.1'
 
-//    annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.5.0'
-//    provided 'com.ryanharter.auto.value:auto-value-gson:0.5.0'
     compile 'com.google.code.gson:gson:2.8.0'
 
 
