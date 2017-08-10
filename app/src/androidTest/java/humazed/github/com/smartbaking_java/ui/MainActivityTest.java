@@ -45,11 +45,6 @@ public class MainActivityTest {
         IdlingRegistry.getInstance().register(mActivityTestRule.getActivity().mCountingIdlingResource);
     }
 
-    @After
-    public void unRegisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(mActivityTestRule.getActivity().mCountingIdlingResource);
-    }
-
     @Test
     public void mainActivityTest() {
 
@@ -58,6 +53,11 @@ public class MainActivityTest {
                 .perform(actionOnItemAtPosition(0, click()));
 
         onView(withId(R.id.stepsRecyclerView)).check(matches(isDisplayed()));
+    }
+
+    @After
+    public void unRegisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(mActivityTestRule.getActivity().mCountingIdlingResource);
     }
 
     private Matcher<View> atPosition(final int position, final Matcher<View> itemMatcher) {
