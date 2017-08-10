@@ -3,12 +3,16 @@ package humazed.github.com.smartbaking_java.widgets;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import humazed.github.com.smartbaking_java.R;
 import humazed.github.com.smartbaking_java.ui.step_details.StepDetailActivity;
+
+import static humazed.github.com.smartbaking_java.ui.step_details.StepsListActivity.ACTION_UPDATE;
 
 /**
  * Implementation of App Widget functionality.
@@ -38,6 +42,16 @@ public class RecipesWidgetProvider extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
+
+    @Override
+    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
+        super.onReceive(context, intent);
+        if (ACTION_UPDATE.equals(intent.getAction())) {
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, getClass()));
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.stepsListView);
         }
     }
 

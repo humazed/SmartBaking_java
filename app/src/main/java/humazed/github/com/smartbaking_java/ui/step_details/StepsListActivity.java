@@ -46,6 +46,7 @@ public class StepsListActivity extends AppCompatActivity {
     public static final String KEY_STEPS = "StepsListActivity:mStep";
     public static final String KEY_POSITION = "StepsListActivity:mPosition";
     private static final String LIST_STATE_KEY = "LIST_STATE_KEY";
+    public static final String ACTION_UPDATE = "com.github.humazed.ACTION_UPDATE";
 
     @Nullable
     @BindView(R.id.recipe_detail_container)
@@ -122,6 +123,11 @@ public class StepsListActivity extends AppCompatActivity {
         getSharedPreferences(getString(R.string.pref_recipe), Context.MODE_PRIVATE).edit()
                 .putString(getString(R.string.pref_recipe_gson), json)
                 .apply();
+
+
+        Intent intent=new Intent();
+        intent.setAction(ACTION_UPDATE);
+        sendBroadcast(intent);
     }
 
 
