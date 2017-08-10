@@ -1,6 +1,5 @@
 package humazed.github.com.smartbaking_java.widgets;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -10,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import humazed.github.com.smartbaking_java.R;
-import humazed.github.com.smartbaking_java.ui.step_details.StepDetailActivity;
 
 import static humazed.github.com.smartbaking_java.ui.step_details.StepsListActivity.ACTION_UPDATE;
 
@@ -28,9 +26,9 @@ public class RecipesWidgetProvider extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.stepsListView, intent);
 
         // Set the PlantDetailActivity intent to launch when clicked
-        Intent appIntent = new Intent(context, StepDetailActivity.class);
-        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setPendingIntentTemplate(R.id.stepsListView, appPendingIntent);
+//        Intent appIntent = new Intent(context, StepDetailActivity.class);
+//        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        views.setPendingIntentTemplate(R.id.stepsListView, appPendingIntent);
 
 
         // Instruct the widget manager to update the widget

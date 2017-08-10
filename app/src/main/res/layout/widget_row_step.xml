@@ -8,14 +8,6 @@
     android:layout_height="wrap_content"
     android:background="#f5f5f5">
 
-    <ImageView
-        android:id="@+id/stepImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/ic_play_circle_outline_black_24dp"
-        tools:ignore="ContentDescription"/>
-
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"

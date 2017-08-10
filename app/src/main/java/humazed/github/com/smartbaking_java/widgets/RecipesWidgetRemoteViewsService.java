@@ -3,22 +3,15 @@ package humazed.github.com.smartbaking_java.widgets;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import java.util.ArrayList;
-
 import humazed.github.com.smartbaking_java.R;
+import humazed.github.com.smartbaking_java.model.Ingredient;
 import humazed.github.com.smartbaking_java.model.Recipe;
-import humazed.github.com.smartbaking_java.model.Step;
 import humazed.github.com.smartbaking_java.utils.auto_gson.GsonAutoValue;
-
-import static humazed.github.com.smartbaking_java.ui.step_details.StepsListActivity.KEY_POSITION;
-import static humazed.github.com.smartbaking_java.ui.step_details.StepsListActivity.KEY_STEPS;
 
 /**
  * User: huma
@@ -53,23 +46,21 @@ public class RecipesWidgetRemoteViewsService extends RemoteViewsService {
             public RemoteViews getViewAt(int position) {
                 if (position == AdapterView.INVALID_POSITION || mRecipe == null) return null;
 
-                Step step = mRecipe.steps().get(position);
 
-                Log.d(TAG, "step = " + step);
+                Ingredient ingredient = mRecipe.ingredients().get(position);
+
+                Log.d(TAG, "ingredient = " + ingredient);
 
                 RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_row_step);
 
-                if (TextUtils.isEmpty(step.videoURL()))
-                    views.setViewVisibility(R.id.stepImageView, View.INVISIBLE);
-
-                views.setTextViewText(R.id.nameTextView, step.shortDescription());
+                views.setTextViewText(R.id.nameTextView, ingredient.toString());
 
                 // Fill in the onClick PendingIntent Template using the specific plant Id for each item individually
-                Intent intent = new Intent();
-                intent.putExtra(KEY_STEPS, new ArrayList<>(mRecipe.steps()));
-                intent.putExtra(KEY_POSITION, position);
-
-                views.setOnClickFillInIntent(R.id.row_steps_container, intent);
+//                Intent intent = new Intent();
+//                intent.putExtra(KEY_STEPS, new ArrayList<>(mRecipe.steps()));
+//                intent.putExtra(KEY_POSITION, position);
+//
+//                views.setOnClickFillInIntent(R.id.row_steps_container, intent);
 
                 return views;
             }
